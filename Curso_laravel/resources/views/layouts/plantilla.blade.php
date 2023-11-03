@@ -17,8 +17,7 @@ elemento en otro documento saber que elemento es el que se va a modificar -->
     <title> @yield('title') </title>
 </head>
 <body>
-
     <!-- Cuando se comparta esta plantilla se podra modificar la etiqueta body-->
-    @yield('content')
+    @yield("content")
 </body>
 </html>

@@ -13,7 +13,9 @@ class CursoSeeder extends Seeder
      */
     public function run(): void
     {
-        // Instancia de una clase (Tabla) Curso
+        // ----------------------------- SEEDER --------------------------------
+
+        //Instancia de una clase (Tabla) Curso
         $curso = new Curso();
 
         // Objeto instanciado con los registros de los diferentes campos

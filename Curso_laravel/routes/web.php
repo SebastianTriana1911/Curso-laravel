@@ -98,12 +98,25 @@ Route::get('/home',HomeController::class);
 // metodos los podremos definir como una ruta de la siguiente manera, dentro de un array 
 // identificamos la clase que deseamos usar (nombre de la clase)::class, seguido del metodo que
 // deseamos llamar de la clase que estamos utilizando. Dicho metodo se activara cuando escribamos
-// la url relacionada a dicho metodo de dicha clase
-Route::get('cursos', [CursoController::class, 'index']);
-Route::get('cursos/create', [CursoController::class, 'create']);
+// la url relacionada a dicho metodo de dicha clase, para Laravel es importante que nosotros le
+// demos a las rutas un nombre identificador para poder acceder a dichas rutas por medio de las
+// vistas. Estos nombres identificadores se realizan pasandole a cada ruta el metodo name, seguido
+// del nombre identificador que les queramos dar
+
+Route::get('cursos', [CursoController::class, 'index'])->name("cursos.index");
+Route::get('cursos/create', [CursoController::class, 'create'])->name("cursos.create");
+
+// Ruta que se encargara de recibir todos los datos que se manden por el formulario de la vista create
+// asignandole el metodo store del controlador Curso
+Route::post('cursos', [CursoController::class, 'store'])->name("cursos.store");
 
 // Ruta de controlador con variable
-Route::get('cursos/{curso}',[CursoController::class, 'show']);
+// Lo que se recibe desde la vista index la cual contiene todos los liks de todos los cursos es la
+// variable curso que es la que contiene todos los registros pero asignandole el campo id, se le 
+// asigna que reciba como parametro un campo tipo id
+Route::get('cursos/{id}',[CursoController::class, 'show'])->name("cursos.show");
+
+Route::get("cursos/{id}/edit", [CursoController::class, "edit"])->name("cursos.edit");
 
 //-----------------------------------------------------------------------------------
 // Agrupar una cantidad de rutas que comparten un mismo controlador
