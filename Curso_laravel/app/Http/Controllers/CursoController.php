@@ -63,6 +63,20 @@ class CursoController extends Controller{
     // por el formulario
     public function store(Request $request){
 
+        // Validacion de formularios
+        // Para validar de que un formulario es diligenciado con todos los campos llenos,
+        // es importante hacer una validacion desde el metodo que recibe los datos de el
+        // formulario, esto se realiza asignandole a la variable que recibe toda la 
+        // informacion del formulario que es la variable request el metodo validate que
+        // dentro de los parentesis se le asigna un array asignandole todos los campos que
+        // tiene que diligenciar y pasandole un require para que obligatoriamente tenga 
+        // que llenar todos los datos
+        $request -> validate([
+            "nombre" => "required",
+            "categoria" => "required",
+            "descripcion" => "required"
+        ]);
+
         // Se instancia una variable de la clase cursos que sera la encargada de recibir
         // todos los datos de la variable request
         $curso = new Curso;
@@ -112,8 +126,48 @@ class CursoController extends Controller{
 
     // ------------------------------------------------------------------------------
 
+    // Por conveniencia las paginas en las que se encuentran los formularios para actualizar
+    // alguna informacion se llaman edit
+    // Para saber que formulario y que datos actualizar se pasa como parametro el id 
+    // del registro que deseamos cambiar, el id se pasa como parametro desde la vista
+    // show 
     public function edit($id){
+
+        // Se recolecta todos los datos dentro de un array con el metodo find y pasandole
+        // como parametro el parametro que recibe la funcion
         $curso = Curso::find($id);
         
+        // Se retorna la vista que contiene el formulario seguido de una variable para
+        // poderla utilizar dentro del documento HTML
+        return view("cursos.edit", ["curso" => $curso]);
+    }
+
+    // ------------------------------------------------------------------------------
+
+    // Por conveniencia las paginas que reciben la informacion actualizada de un formulario
+    // se llama update y dicho metodo debera tener en la ruta el metodo put
+    // Se recibe como parametro dentro de el metodo update dos parametros, el primer
+    // parametro sera la palabra reservada Request con la variable request que actua como
+    // la variable que recolecta toda la informacion que se recibe por el formulario y como
+    // segundo parametro es una variable que toma los datos que ya hayan como registro
+    public function update(Request $request, $id){
+
+        // Se recolecta todos los datos dentro de un array con el metodo find y pasandole
+        // como parametro el parametro que recibe la funcion
+        $curso = Curso::find($id);
+
+        // A la variable curso con el campo nombre se le asigna el valor de la variable
+        // request en el campo nombre, (asi con el resto de campos)
+        $curso -> nombre = $request -> nombre;
+        $curso -> categoria = $request -> categoria;
+        $curso -> descripcion = $request -> descripcion;
+
+        // Se salva la variable curso que ya contiene todos los registros para previamente
+        // subirlas a la base de datos
+        $curso -> save();
+
+        // Ya diligenciado el formulario para actualizar los registros se redirecciona una
+        // nueva ruta que va a mostrar una vista
+        return redirect()->route("cursos.index");
     }
 }

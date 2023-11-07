@@ -116,7 +116,14 @@ Route::post('cursos', [CursoController::class, 'store'])->name("cursos.store");
 // asigna que reciba como parametro un campo tipo id
 Route::get('cursos/{id}',[CursoController::class, 'show'])->name("cursos.show");
 
+// Ruta que se encarga de retornar un metodo que retorna una vista en la cual se encuentra el mismo
+// formulario para crear un curso pero en este caso sera el formulario para actualizar dicho curso
 Route::get("cursos/{id}/edit", [CursoController::class, "edit"])->name("cursos.edit");
+
+// Ruta que se encarga de recibir los datos que llegan desde el formulario que funciona para actualizar
+// un registro, se utiliza con el metodo put ya que deseamos actualizar, no deseamos ni mostrar que seria
+// con el metodo get ni deseamos mandar a la base de datos que seria con el metodo post
+Route::put("cursos/{id}", [CursoController::class, "update"])->name("cursos.update");
 
 //-----------------------------------------------------------------------------------
 // Agrupar una cantidad de rutas que comparten un mismo controlador

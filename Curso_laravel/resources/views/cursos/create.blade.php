@@ -29,6 +29,17 @@
                 <input id="nombre" type="text" name="nombre"/>
             </label>
 
+            <!-- Error: La directiva error nos ayudara a mostrar un mensaje de error si
+            un campo del formulario se llega a enviar estando vacio para esto se debe de
+            declarar la validacion requerida desde el contructor, la directiva error recibe
+            como parametro el nombre del input al cual verificara si a la hora de enviarlo
+            este se encuentra vacio o con algun dato, si este se encuentra vacio mostrara un
+            mensaje el cual lo contiene una variable de PHP la cual es $message -->
+            @error('nombre')
+                <br>
+                <span>{{$message}}</span>
+            @enderror
+
             <br> <br>
 
             <label for="categoria">
@@ -36,12 +47,22 @@
                 <input id="categoria" type="text" name="categoria"/>
             </label>
 
+            @error('categoria')
+                <br>
+                <span>{{$message}}</span>
+            @enderror
+
             <br> <br>
 
             <label for="descripcion">
                 <strong>Descripcion:</strong> <br> <br> 
                 <textarea id="descripcion" name="descripcion"></textarea>
-            </label> 
+            </label>
+
+            @error('descripcion')
+                <br>
+                <span>{{$message}}</span>
+            @enderror
 
             <br> <br>
 
