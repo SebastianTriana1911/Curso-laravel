@@ -24,9 +24,17 @@
             evitando posibles inconvenientes con gente maliciosa -->
             @csrf
 
+            <!-- Metodo old: Cuando usamos reglas de validacion y enviamos un formulario
+            con campos vacios lo que sucede es que re reinicia nuevamente el formulario
+            perdiendo la informacion que ya se haya escrito, para que no suceda esto dentro
+            del value utilizaremos el metodo old con el name del input al que deseamos
+            recuperar la informacion, lo que hace este metodo es que a la hora de diligenciar
+            un formulario y esta contenga inputs vacios en vez de reiniciar todo el formulario
+            y dejarlo en blanco, mostrara los inputs que ya se hayan escrito antes de enviar
+            dicho formulario -->
             <label for="nombre">
                 <strong>Nombre:</strong>
-                <input id="nombre" type="text" name="nombre"/>
+                <input id="nombre" type="text" name="nombre" value="{{old("nombre")}}" />
             </label>
 
             <!-- Error: La directiva error nos ayudara a mostrar un mensaje de error si
@@ -44,7 +52,7 @@
 
             <label for="categoria">
                 <strong>Categoria:</strong> 
-                <input id="categoria" type="text" name="categoria"/>
+                <input id="categoria" type="text" name="categoria" value="{{old("categoria")}}"/>
             </label>
 
             @error('categoria')
@@ -54,9 +62,12 @@
 
             <br> <br>
 
+            <!-- La etiquta textarea como no tiene propiedad value para asignarle el metodo old y
+            poder recuperar su informacion, dicho metodo se debe de ingresar dentro de la etiqueta
+            de apertura y la etiqueta de cierre -->
             <label for="descripcion">
                 <strong>Descripcion:</strong> <br> <br> 
-                <textarea id="descripcion" name="descripcion"></textarea>
+                <textarea id="descripcion" name="descripcion">{{old("descripcion")}}</textarea>
             </label>
 
             @error('descripcion')

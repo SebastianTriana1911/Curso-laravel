@@ -31,22 +31,41 @@
 
             <label for="nombre">
                 <strong>Nombre:</strong>
-                <input id="nombre" type="text" name="nombre" value="{{$curso -> nombre}}"/>
+
+                <!-- El metodo old en este caso lo que hara es que si la validacion falla va a recuperar lo que
+                el usuario ingreso en el campo name antes de que la validacion fallase y si la validacion no a
+                fallado mostrara lo que haya en el campo nombre de la variable curso-->
+                <input id="nombre" type="text" name="nombre" value="{{old("nombre", $curso -> nombre)}}"/>
             </label>
+
+            @error('nombre')
+                <br>
+                <span>{{$message}}</span>
+            @enderror
 
             <br> <br>
 
             <label for="categoria">
                 <strong>Categoria:</strong> 
-                <input id="categoria" type="text" name="categoria" value="{{$curso -> categoria}}"/>
+                <input id="categoria" type="text" name="categoria" value="{{old("categoria", $curso -> categoria)}}"/>
             </label>
 
             <br> <br>
 
+            @error('categoria')
+                <br>
+                <span>{{$message}}</span>
+            @enderror
+
             <label for="descripcion">
                 <strong>Descripcion:</strong> <br> <br> 
-                <textarea id="descripcion" name="descripcion">{{$curso -> descripcion}}</textarea>
+                <textarea id="descripcion" name="descripcion">{{old("descripcion", $curso -> descripcion)}}</textarea>
             </label> 
+
+            @error('descripcion')
+                <br>
+                <span>{{$message}}</span>
+            @enderror
 
             <br> <br>
 

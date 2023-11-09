@@ -4,7 +4,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCurso;
 use Illuminate\Http\Request;
+
+use App\Http\StoreRequests;
 
 // Se importa el modelo curso para poder instanciar un objeto de dicha clase
 // y poder llamar todos los registros que se encuentran en la base de datos
@@ -58,11 +61,14 @@ class CursoController extends Controller{
     // Al crear un nuevo registro por lo general se hace por medio de un formulario,
     // para que dichos datos se almacenen en una variable para luego poder subirlos a
     // una base de datos se debe de crear una funcion y como parametros se le asigna
-    // la palabra reservada Request seguido de una variable con el nombre request, esta
-    // comando es el que recibira por medio del metodo POST todos los datos ingresados
-    // por el formulario
-    public function store(Request $request){
+    // la clase StoreRequest que hace la misma funcionalidad como si estuvieramos 
+    // llamando a la clase Request solo que al archivo StoreRequest contendra todas las
+    // validaciones que deberan de tener los campos de el formulario que se vaya a 
+    // diligenciar seguido de una variable con el nombre request, esta comando es el que
+    // recibira por medio del metodo POST todos los datos ingresados por el formulario
+    public function store(StoreCurso $request){
 
+        // -------------------- VALIDACIONES DESDE EL CONSTRUCTOR ---------------------
         // Validacion de formularios
         // Para validar de que un formulario es diligenciado con todos los campos llenos,
         // es importante hacer una validacion desde el metodo que recibe los datos de el
@@ -71,11 +77,19 @@ class CursoController extends Controller{
         // dentro de los parentesis se le asigna un array asignandole todos los campos que
         // tiene que diligenciar y pasandole un require para que obligatoriamente tenga 
         // que llenar todos los datos
-        $request -> validate([
-            "nombre" => "required",
-            "categoria" => "required",
-            "descripcion" => "required"
-        ]);
+        // $request -> validate([
+
+            // Existen dos formas de declarar mas de una validacion para el campo de un
+            // formulario y son las siguientes
+
+            // Primera forma con |
+            // "nombre" => "required|min:3",
+
+            // Segunda forma con un array que representa cada validacion como un elemento
+            // "categoria" => ["required", "max:100"],
+            // "descripcion" => "required"
+        // ]);
+        // ------------------------------------------------------------------------------
 
         // Se instancia una variable de la clase cursos que sera la encargada de recibir
         // todos los datos de la variable request
@@ -151,6 +165,27 @@ class CursoController extends Controller{
     // la variable que recolecta toda la informacion que se recibe por el formulario y como
     // segundo parametro es una variable que toma los datos que ya hayan como registro
     public function update(Request $request, $id){
+
+        // Validacion de formularios
+        // Para validar de que un formulario es diligenciado con todos los campos llenos,
+        // es importante hacer una validacion desde el metodo que recibe los datos de el
+        // formulario, esto se realiza asignandole a la variable que recibe toda la 
+        // informacion del formulario que es la variable request el metodo validate que
+        // dentro de los parentesis se le asigna un array asignandole todos los campos que
+        // tiene que diligenciar y pasandole un require para que obligatoriamente tenga 
+        // que llenar todos los datos
+        $request -> validate([
+
+            // Existen dos formas de declarar mas de una validacion para el campo de un
+            // formulario y son las siguientes
+
+            // Primera forma con |
+            "nombre" => "required|min:3",
+
+            // Segunda forma con un array que representa cada validacion como un elemento
+            "categoria" => ["required", "max:100"],
+            "descripcion" => "required"
+        ]);
 
         // Se recolecta todos los datos dentro de un array con el metodo find y pasandole
         // como parametro el parametro que recibe la funcion
