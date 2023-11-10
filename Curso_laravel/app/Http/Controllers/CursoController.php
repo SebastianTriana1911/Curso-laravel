@@ -287,4 +287,38 @@ class CursoController extends Controller{
         // redirecciona una nueva ruta que va a mostrar la vista index
         return redirect()->route("cursos.index");
     }
+    // -----------------------------------------------------------------------------------
+
+
+    // ------------------------------- METODO DESTROY ------------------------------------
+    // Por conveniencia los metodos que eliminan registros de una base de datos se
+    // llaman como destroy, este metodo destroy recibira por medio de la ruta un
+    // parametro el cual sera su identificador unico para saber mediante la llave
+    // primaria del registro que campo eliminar
+    public function destroy ($id){
+
+        // ----------------------- FIND() --------------------------
+        // Se recolecta todos los datos dentro de un array con el 
+        // metodo find() y pasandole como parametro el identificador
+        // unico que recibe el metodo como tambien su URL
+        $curso = Curso::find($id);
+        // ----------------------------------------------------------
+
+        // ----------------------- DELETE() --------------------------
+        // El metodo delete es un metodo que se le asigna a una variable
+        // que contenga algun registro para que dicho metodo actue y
+        // elimine dicho registro de la base de datos.
+        // En este caso como ya capturamos por medio de un array todos
+        // los campos de un registro y se lo asignamos a la variable
+        // curso, le asignamos el metodo delete() y se eliminara dicho
+        // registro de la base de datos 
+        $curso -> delete();
+        // ----------------------------------------------------------
+
+        // Se retorna una redireccion a la vista curso cuando se 
+        // ejecute el metodo destroy
+        return redirect()->route("cursos.index");
+    }
+    // -----------------------------------------------------------------------------------
+
 }

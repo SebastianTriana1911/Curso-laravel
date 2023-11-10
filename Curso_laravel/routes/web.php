@@ -94,36 +94,44 @@ Route::get('/home',HomeController::class);
 //-----------------------------------------------------------------------------------
 // Rutas desde un controlador con diferentes metodos
 
-// Los controladores funcionan por clases y cada clase tiene diferentes metodos cada uno de esos
-// metodos los podremos definir como una ruta de la siguiente manera, dentro de un array 
-// identificamos la clase que deseamos usar (nombre de la clase)::class, seguido del metodo que
-// deseamos llamar de la clase que estamos utilizando. Dicho metodo se activara cuando escribamos
-// la url relacionada a dicho metodo de dicha clase, para Laravel es importante que nosotros le
-// demos a las rutas un nombre identificador para poder acceder a dichas rutas por medio de las
-// vistas. Estos nombres identificadores se realizan pasandole a cada ruta el metodo name, seguido
-// del nombre identificador que les queramos dar
+// Los controladores funcionan por clases y cada clase tiene diferentes metodos cada
+// uno de esos metodos los podremos definir como una ruta de la siguiente manera, dentro
+// de un array identificamos la clase que deseamos usar (nombre de la clase)::class, 
+// seguido del metodo que deseamos llamar de la clase que estamos utilizando. Dicho metodo
+// se activara cuando escribamos la url relacionada a dicho metodo de dicha clase, para 
+// Laravel es importante que nosotros le demos a las rutas un nombre identificador para 
+// poder acceder a dichas rutas por medio de las vistas. Estos nombres identificadores
+// se realizan pasandole a cada ruta el metodo name, seguido del nombre identificador
+// que les queramos dar
 
 Route::get('cursos', [CursoController::class, 'index'])->name("cursos.index");
 Route::get('cursos/create', [CursoController::class, 'create'])->name("cursos.create");
 
-// Ruta que se encargara de recibir todos los datos que se manden por el formulario de la vista create
-// asignandole el metodo store del controlador Curso
+// Ruta que se encargara de recibir todos los datos que se manden por el formulario 
+// de la vista create asignandole el metodo store del controlador Curso
 Route::post('cursos', [CursoController::class, 'store'])->name("cursos.store");
 
 // Ruta de controlador con variable
-// Lo que se recibe desde la vista index la cual contiene todos los liks de todos los cursos es la
-// variable curso que es la que contiene todos los registros pero asignandole el campo id, se le 
-// asigna que reciba como parametro un campo tipo id
+// Lo que se recibe desde la vista index la cual contiene todos los liks de todos
+// los cursos es la variable curso que es la que contiene todos los registros pero
+// asignandole el campo id, se le asigna que reciba como parametro un campo tipo id
 Route::get('cursos/{id}',[CursoController::class, 'show'])->name("cursos.show");
 
-// Ruta que se encarga de retornar un metodo que retorna una vista en la cual se encuentra el mismo
-// formulario para crear un curso pero en este caso sera el formulario para actualizar dicho curso
+// Ruta que se encarga de retornar un metodo que retorna una vista en la cual se 
+// encuentra el mismo formulario para crear un curso pero en este caso sera el 
+// formulario para actualizar dicho curso
 Route::get("cursos/{id}/edit", [CursoController::class, "edit"])->name("cursos.edit");
 
-// Ruta que se encarga de recibir los datos que llegan desde el formulario que funciona para actualizar
-// un registro, se utiliza con el metodo put ya que deseamos actualizar, no deseamos ni mostrar que seria
-// con el metodo get ni deseamos mandar a la base de datos que seria con el metodo post
+// Ruta que se encarga de recibir los datos que llegan desde el formulario que funciona
+// para actualizar un registro, se utiliza con el metodo put ya que deseamos actualizar,
+// no deseamos ni mostrar que seria con el metodo get ni deseamos mandar a la base de 
+// datos que seria con el metodo post, dicho metodo put se debe de declarar por una
+// directiva blade desde el formulario de actualizacion (@method("put"))
 Route::put("cursos/{id}", [CursoController::class, "update"])->name("cursos.update");
+
+// Ruta que se encarga de eliminar un registro pasandole como parametro a la ruta, el campo 
+// identificador para que con la llave primaria se sepa que registro se desea eliminar
+Route::delete("cursos/{id}", [CursoController::class, "destroy"])->name("cursos.destroy");
 
 //-----------------------------------------------------------------------------------
 // Agrupar una cantidad de rutas que comparten un mismo controlador
