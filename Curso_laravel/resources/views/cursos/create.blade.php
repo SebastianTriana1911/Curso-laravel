@@ -21,7 +21,9 @@
             web, pues a la hora de enviar un formulario laravel crea un token que se 
             guardara en el servidor, lo que significa que ningun otro formulario aparte
             del que estamos creando podra enviar informacion a nuestra base de datos,
-            evitando posibles inconvenientes con gente maliciosa -->
+            evitando posibles inconvenientes con gente maliciosa, es obligatorio colocar
+            esta directiva a la hora de crear un formulario ya que si no lo hacemos nos
+            generara error -->
             @csrf
 
             <!-- Metodo old: Cuando usamos reglas de validacion y enviamos un formulario
@@ -30,8 +32,8 @@
             del value utilizaremos el metodo old con el name del input al que deseamos
             recuperar la informacion, lo que hace este metodo es que a la hora de diligenciar
             un formulario y esta contenga inputs vacios en vez de reiniciar todo el formulario
-            y dejarlo en blanco, mostrara los inputs que ya se hayan escrito antes de enviar
-            dicho formulario -->
+            y dejarlo en blanco, mostrara los inputs que no tuvieron error de validacio antes
+            de enviar dicho formulario -->
             <label for="nombre">
                 <strong>Nombre:</strong>
                 <input id="nombre" type="text" name="nombre" value="{{old("nombre")}}" />

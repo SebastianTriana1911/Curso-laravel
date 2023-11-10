@@ -83,7 +83,21 @@ return [
     |
     */
 
+    
+    // -------------- CAMBIAR EL LENGUAJE DE LOS MENSAJES DE VALIDACION ---------------
+    // En la terminal se inserta el comando php artisan lang:publish -> En este momento
+    // se creara una carpeta llamada lang donde se muestre todas las validaciones y su
+    // respectivo mensaje en ingles. Como deseamos que esten en español se descarga un
+    // paquete de internet que lo podemos encontrar buscando laravel lang, luego de 
+    // encontrar la pagina le damos en instalacion y copiamos los dos primeros comandos
+    // de nos aparezcan. Cuando ya se este ingresando el segundo comando en vez de escribir
+    // el fr que aparece por defecto se coloca un "es" que hace referencia al lenguaje de
+    // español. Ya instalado el paquete nos dirigimos a la carpeta config en app y buscamos
+    // el codigo 'locale' => 'en', y se le cambia el en por el "es" y ya estarian los 
+    // mensajes de validacion en español
     'locale' => 'es',
+    // --------------------------------------------------------------------------------
+
 
     /*
     |--------------------------------------------------------------------------

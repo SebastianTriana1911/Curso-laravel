@@ -25,12 +25,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Curso extends Model
-{
+class Curso extends Model{
     use HasFactory;
 
+    // ------------------------ APUTAR DE UN MODELO A OTRO -------------------------
     // Si se desea que el modelo apunte a otra tabla distinta, por ejemplo
     // que le modelo Curso actue como el modelo de la tabla usuarios lo 
     // asignaremos de la siguiente manera
     // protected $table = "users";
+    // -----------------------------------------------------------------------------
+
+
+    // ---------------------------- ASIGNACION MASIVA ------------------------------
+    // El metodo protecte guarded asegura de que en una base de datos no se
+    // inserte el valor en un campo protegido, pero como en este ejemplo no
+    // se tiene un campo protegido se deja los parentesis vacios lo que significa
+    // que todo dato que venga desde el controlador de manera de asignacion
+    // masiva se va a subir sin importar que
+    protected $guarded = []; 
+    // -----------------------------------------------------------------------------
+
 }
